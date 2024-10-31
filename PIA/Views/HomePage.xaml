@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PIA.Views.HomePage"
+             Title="Seguridad Las Estancias®">
+    <Grid RowDefinitions=".3*,.7*">
+        <Image Aspect="AspectFill" Source="segestan.png"/>
+        <Grid Grid.Row="1">
+            <RoundRectangle Margin="-5, -30, -5, -2"
+                        CornerRadius="30,30,0,0"
+                        Fill="white"/>
+            <VerticalStackLayout Margin="30,0,30,0" >
+                <Label FontAttributes="Bold"
+                   FontFamily="bold"
+                   FontSize="Medium"
+                   Text="Bienvenido"
+                   TextColor="#2D2D2D"/>
+                <Label FontFamily="medium"
+                   Text="Elige una opcion para continuar"
+                   TextColor="#A3A3A4"/>
+                <Button 
+                Margin="0,20,0,0"
+                BackgroundColor="#5271ff"
+                HeightRequest="60"
+                Text="Iniciar sesion"
+                TextColor="White"
+                Clicked="btn_login">
+
+                </Button>
+
+                <Button 
+                    Margin="0,20,0,0"
+                    BackgroundColor="#5271ff"
+                    HeightRequest="60"
+                    Text="Registrar Empresa"
+                    TextColor="White"
+                    Clicked="btn_RegEmp">
+                </Button>
+
+
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
+</ContentPage>

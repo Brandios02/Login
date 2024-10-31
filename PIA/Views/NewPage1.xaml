@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PIA.Views.NewPage1"
+             Title="NewPage1">
+    <Grid RowDefinitions=".3*,.7*">
+        <Image Aspect="AspectFill" Source="segestan.png"/>
+        <Grid Grid.Row="1">
+            <RoundRectangle Margin="-5, -30, -5, -2"
+                        CornerRadius="30,30,0,0"
+                        Fill="white"/>
+            <VerticalStackLayout Margin="30,0,30,0" >
+                <Label FontAttributes="Bold"
+                   FontFamily="bold"
+                   FontSize="Medium"
+                   Text="Bienvenido"
+                   TextColor="#2D2D2D"/>
+                <Label FontFamily="medium"
+                   Text="Inicia sesion para continuar"
+                   TextColor="#A3A3A4"/>
+                <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,.8*">
+                    <RoundRectangle BackgroundColor="#5271ff"
+                                CornerRadius="10"
+                                HeightRequest="40"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                WidthRequest="40"/>
+                    <Image HorizontalOptions="Center" Source="mail.svg">
+                    </Image>
+                    <Entry x:Name="emailEntry"
+                       Grid.Column="1"
+                       Placeholder="Email"
+                       Text=""
+                       TextColor="Black"
+                       VerticalOptions="Center"></Entry>
+                </Grid>
+
+
+
+                <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,.8*">
+                    <RoundRectangle BackgroundColor="#5271ff"
+                CornerRadius="10"
+                HeightRequest="40"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                WidthRequest="40"/>
+                    <Image HorizontalOptions="Center" Source="pass.svg">
+                    </Image>
+                    <Entry x:Name="PasswordEntry"
+                       Grid.Column="1"
+                       Placeholder="Password"
+                       IsPassword="True"
+                       Text=""
+                       TextColor="Black"
+                       VerticalOptions="Center"></Entry>
+                </Grid>
+                <Button 
+                Margin="0,20,0,0"
+                BackgroundColor="#5271ff"
+                HeightRequest="60"
+                Text="Login"
+                TextColor="White"
+                Clicked="btn_login">
+                </Button>
+                
+
+
+
+                <Label 
+                Margin="0,20,0,-10"
+                HorizontalOptions="Center"
+                Text="¿Olvidaste tu contraseña?"
+                TextColor="#5271ff"
+                TextDecorations="Underline"
+                />
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
+</ContentPage>
