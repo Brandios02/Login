@@ -51,12 +51,15 @@
 	<ItemGroup>
 	  <None Remove="Resources\Fonts\Lato-Bold.ttf" />
 	  <None Remove="Resources\Fonts\Lato-Regular.ttf" />
+	  <None Remove="Resources\Images\contactargua.png" />
+	  <None Remove="Resources\Images\eliminarvis.png" />
 	  <None Remove="Resources\Images\emp.svg" />
 	  <None Remove="Resources\Images\mail.svg" />
 	  <None Remove="Resources\Images\pass.svg" />
 	  <None Remove="Resources\Images\phone.svg" />
 	  <None Remove="Resources\Images\segestan.png" />
 	  <None Remove="Resources\Images\user.svg" />
+	  <None Remove="Resources\Images\visita.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -69,6 +72,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Views\Gvisita.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\HomePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

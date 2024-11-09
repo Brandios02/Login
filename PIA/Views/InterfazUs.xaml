@@ -2,11 +2,76 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PIA.Views.InterfazUs"
-             Title="InterfazUs">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+             Title="InterfazUs"
+             Background="#F1F1F1">
+             
+    <VerticalStackLayout VerticalOptions="Center">
+        <Label Text="Bienvenido residente"
+               FontSize="Medium"  
+            FontAttributes="Bold"
+            TextColor="Black"
+            HorizontalOptions="Center"
+            Margin="0,0" />
+        <Label Text="¿Qué deseas hacer hoy?"
+               FontSize="Medium"
+            TextColor="Black"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            Margin="0,30" />
+            <Label Text="Generar visita"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               TextColor="Black"
+               FontSize="Medium"
+               FontAttributes="Bold"/>
+        <ImageButton Source="visita.png" 
+                     Aspect="Fill"
+                     BorderColor="Black"
+                     WidthRequest="350"
+                     BorderWidth="2"
+                     CornerRadius="70"
+                     Padding="5"
+                     IsEnabled="True"
+                     BackgroundColor="#5271ff"
+                     HeightRequest="150"
+                     Clicked="IB_Gvisita">
+        </ImageButton>
+        
+           <Label Text="Eliminar Visita"
+           HorizontalOptions="Center"
+           VerticalOptions="Center"
+           TextColor="Black"
+           FontSize="Medium"
+           FontAttributes="Bold"/>
+            <ImageButton Source="eliminarvis.png" 
+                     Aspect="Fill"
+                     BorderColor="Black"
+                     WidthRequest="350"
+                     BorderWidth="2"
+                     CornerRadius="70"
+                     Padding="5"
+                     IsEnabled="True"
+                     BackgroundColor="#5271ff"
+                     HeightRequest="150"
+                     >
+        </ImageButton>
+        <Label Text="Contactar Guardia"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               TextColor="Black"
+               FontSize="Medium"
+               FontAttributes="Bold"/>     
+        <ImageButton Source="contactargua.png" 
+                     Aspect="Fill"
+                     BorderColor="Black"
+                     WidthRequest="350"
+                     BorderWidth="2"
+                     CornerRadius="70"
+                     Padding="5"
+                     IsEnabled="True"
+                     BackgroundColor="#5271ff"
+                     HeightRequest="150"
+                     >
+        </ImageButton>
     </VerticalStackLayout>
 </ContentPage>
