@@ -1,10 +1,6 @@
-﻿using Firebase.Database;
-using Firebase.Database.Query;
-using PIA.Models;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+﻿using Firebase.Auth;
 using Firebase.Auth.Providers;
-using Firebase.Auth;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace PIA;
 
@@ -25,17 +21,18 @@ public static class MauiProgram
             });
 
 #if DEBUG
-
+        // Configuración de FirebaseAuthClient para la autenticación con correo electrónico y contraseña
         builder.Services.AddSingleton(new FirebaseAuthClient(new FirebaseAuthConfig()
         {
-            ApiKey = "AIzaSyC6ZJBkRRBAk5xm99vHToHlLLmSsxMxles\r\n",
-            AuthDomain = "prueba-726d0.firebaseapp.com",
+            ApiKey = "AIzaSyC6ZJBkRRBAk5xm99vHToHlLLmSsxMxles",  // Tu API Key de Firebase
+            AuthDomain = "prueba-726d0.firebaseapp.com",  // Tu dominio de autenticación de Firebase
             Providers = new FirebaseAuthProvider[]
             {
-                new EmailProvider()
+                new EmailProvider()  // Proveedor de autenticación por correo electrónico
             }
         }));
 #endif
+
         return builder.Build();
     }
 }

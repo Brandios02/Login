@@ -32,7 +32,7 @@
                     Margin="0,20,0,0"
                     BackgroundColor="#5271ff"
                     HeightRequest="60"
-                    Text="Registrar Empresa"
+                    Text="Registrarse"
                     TextColor="White"
                     Clicked="btn_RegEmp">
                 </Button>

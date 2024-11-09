@@ -8,6 +8,6 @@ public partial class App : Application
     {
         InitializeComponent();
 
-        MainPage = new NavigationPage(new NewPage1(firebaseAuthClient));
+        MainPage = new NavigationPage(new HomePage());
     }
 }

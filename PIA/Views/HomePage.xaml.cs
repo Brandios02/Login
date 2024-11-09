@@ -1,24 +1,41 @@
-
-namespace PIA.Views;
-
 using Firebase.Auth;
-using Views;
+using Firebase.Auth.Providers;
+using PIA.Views;
 
-public partial class HomePage : ContentPage
+namespace PIA.Views
 {
-    public HomePage()
+    public partial class HomePage : ContentPage
     {
-        InitializeComponent();
-    }
-    private async void btn_RegEmp(object sender, EventArgs e)
-    {
-        //SemanticScreenReader.Announce(btn_RegEmp);
-        await Navigation.PushModalAsync(new Views.RegistroPage());
-    }
+        private FirebaseAuthClient _firebaseAuthClient;
 
-    private async void btn_login(object sender, EventArgs e)
-    {
-        //SemanticScreenReader.Announce(btn_RegEmp);
-        await Navigation.PushModalAsync(new Views.NewPage1());
+        public HomePage()
+        {
+            InitializeComponent();
+
+            // Configura FirebaseAuthClient con FirebaseAuthConfig
+            var firebaseAuthConfig = new FirebaseAuthConfig
+            {
+                ApiKey = "AIzaSyC6ZJBkRRBAk5xm99vHToHlLLmSsxMxles",
+                AuthDomain = "prueba-726d0.firebaseapp.com",
+                Providers = new FirebaseAuthProvider[]
+                {
+                    new EmailProvider() // Asegúrate de incluir el EmailProvider
+                }
+            };
+
+            _firebaseAuthClient = new FirebaseAuthClient(firebaseAuthConfig);
+        }
+
+        private async void btn_RegEmp(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new Views.RegistroPage(_firebaseAuthClient));
+        }
+
+        private async void btn_login(object sender, EventArgs e)
+        {
+            // Crea una instancia de NewPage1 y pasa el FirebaseAuthClient
+            var newPage = new NewPage1(_firebaseAuthClient);
+            await Navigation.PushModalAsync(newPage);
+        }
     }
 }
