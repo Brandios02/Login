@@ -3,21 +3,28 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PIA.Views.Gvisita"
              Title="Generar QR de Visita">
-    <VerticalStackLayout Padding="20" Spacing="15" VerticalOptions="Center">
-        <Entry x:Name="nameEntry" Placeholder="Nombre del visitante" />
 
-        <Picker x:Name="rolePicker" Title="Tipo de visita">
-            <Picker.ItemsSource>
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>Frecuente</x:String>
-                    <x:String>Única vez</x:String>
-                </x:Array>
-            </Picker.ItemsSource>
-        </Picker>
+    <Grid RowDefinitions="Auto, *">
+        <!-- Imagen en la parte superior -->
+        <Image Aspect="AspectFill" Source="segestan.png" />
 
-        <Button Text="Generar QR" Clicked="btnGenQR" />
+        <!-- Contenido principal debajo de la imagen -->
+        <VerticalStackLayout Grid.Row="1" Padding="20" Spacing="15" VerticalOptions="Center">
+            <Picker x:Name="rolePicker" Title="Tipo de visita">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Frecuente</x:String>
+                        <x:String>Única vez</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+            <Entry x:Name="nameEntry" Placeholder="Nombre del visitante" />
 
-        <!-- Aquí está el Image para mostrar el QR -->
-        <Image x:Name="qrImageView" HeightRequest="300" WidthRequest="300" VerticalOptions="Center" />
-    </VerticalStackLayout>
+            <Button Text="Generar QR" Clicked="BtnGenQR" />
+
+            <!-- Aquí está el Image para mostrar el QR -->
+            <Image x:Name="qrImageView" WidthRequest="200" HeightRequest="200" Aspect="AspectFill" />
+        </VerticalStackLayout>
+    </Grid>
+
 </ContentPage>
