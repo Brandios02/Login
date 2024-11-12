@@ -53,7 +53,7 @@
                      IsEnabled="True"
                      BackgroundColor="#5271ff"
                      HeightRequest="150"
-                     >
+                     Clicked="IB_Evisita">
         </ImageButton>
         <Label Text="Contactar Guardia"
                HorizontalOptions="Center"

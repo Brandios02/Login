@@ -10,10 +10,11 @@ namespace PIA.Models
     {
         public string Id { get; set; }  // ID único para cada visita
         public string Residente { get; set; }
-        public string NombreVisita { get; set; }
-        public DateTime Fecha { get; set; }
-        public string Propósito { get; set; }
+        public string VisitorName { get; set; }
+        public string VisitType { get; set; }
         public string QRCode { get; set; }  // El código QR generado
         public bool AccesoAutorizado { get; set; }
+        public string ExpirationDate { get; set; }
+        public string DateCreated { get; set; }
     }
 }

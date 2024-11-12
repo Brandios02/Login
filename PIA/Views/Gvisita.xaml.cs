@@ -3,16 +3,20 @@ using FireSharp.Config;
 using FireSharp.Interfaces;
 using FireSharp.Response;
 using Microsoft.Maui.Controls;
+using PIA.Models;
 using System;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Firebase.Auth;
+using Firebase.Auth.Providers;
 
 namespace PIA.Views
 {
     public partial class Gvisita : ContentPage
     {
         private IFirebaseClient firebaseClient;
+        private FirebaseAuthProvider _firebaseAuthProvider; // Para autenticación
         private const string FirebaseUrl = "https://prueba-726d0-default-rtdb.firebaseio.com/"; // Tu URL de Firebase
         private const string ApiUrl = "http://192.168.0.3:7280/api/qr/generate-qr"; // URL de tu API (cambiar si usas HTTPS)
 
@@ -28,11 +32,6 @@ namespace PIA.Views
             };
             firebaseClient = new FireSharp.FirebaseClient(config);
 
-            // Opcional: ocultar la barra de navegación si lo deseas
-            if (Navigation.NavigationStack.Count == 0)
-            {
-                NavigationPage.SetHasNavigationBar(this, false);
-            }
         }
 
         private async void BtnGenQR(object sender, EventArgs e)
@@ -91,8 +90,6 @@ namespace PIA.Views
 
                     // Realizamos la solicitud GET a la API para generar el QR
                     var response = await client.GetAsync(requestUrl);
-
-                    // Verificamos si la respuesta es exitosa (código 200 OK)
                     if (response.IsSuccessStatusCode)
                     {
                         // Leemos la respuesta como un arreglo de bytes (la imagen en formato PNG)
@@ -131,20 +128,22 @@ namespace PIA.Views
         // Registrar la visita en Firebase y devolver un valor booleano de éxito
         private async Task<bool> RegisterVisit(string visitorName, string visitType, DateTime expirationDate)
         {
-            var visita = new
+
+            var visita = new Visita
             {
+                Id = Guid.NewGuid().ToString(),
                 VisitorName = visitorName,
                 VisitType = visitType,
                 ExpirationDate = expirationDate.ToString("yyyy-MM-dd HH:mm:ss"),
-                DateCreated = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                DateCreated = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                AccesoAutorizado = true
             };
 
-            string visitId = Guid.NewGuid().ToString();
 
             try
             {
                 // Guardar la visita en Firebase
-                SetResponse response = firebaseClient.Set($"visitas/{visitId}", visita);
+                SetResponse response = firebaseClient.Set($"visitas/{visita.Id}", visita);
 
                 // Si la respuesta es OK, devolvemos true, indicando que el registro fue exitoso
                 return response != null && response.StatusCode == System.Net.HttpStatusCode.OK;

@@ -8,7 +8,12 @@ public partial class InterfazUs : ContentPage
 	}
     private async void IB_Gvisita(object sender, EventArgs e)
     {
-        // Navega a la página correspondiente cuando se haga clic en el primer ImageButton
-        await Navigation.PushAsync(new Gvisita()); // Sustituye VisitaPage por la página correcta
+        
+        await Navigation.PushAsync(new Gvisita()); 
+    }
+    private async void IB_Evisita(object sender, EventArgs e)
+    {
+        
+        await Navigation.PushAsync(new Evisita()); 
     }
 }

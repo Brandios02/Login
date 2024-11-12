@@ -57,6 +57,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <MauiXaml Update="Views\Evisita.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
     <MauiXaml Update="Views\Gvisita.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
