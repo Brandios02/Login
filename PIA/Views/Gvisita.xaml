@@ -23,7 +23,8 @@
             <Button Text="Generar QR" Clicked="BtnGenQR" />
 
             <!-- Aquí está el Image para mostrar el QR -->
-            <Image x:Name="qrImageView" WidthRequest="200" HeightRequest="200" Aspect="AspectFill" />
+            <Image x:Name="qrImageView" WidthRequest="200" HeightRequest="200" 
+                   HorizontalOptions="Center" VerticalOptions="Center"/>
         </VerticalStackLayout>
     </Grid>
 

@@ -19,12 +19,20 @@ namespace PIA.Views
         public Gvisita()
         {
             InitializeComponent();
+
+            // Configuración del cliente de Firebase
             var config = new FirebaseConfig
             {
                 AuthSecret = "UvbLQ8Lcr4OGYvzyo2TV8ejRlHxtYkDlbDxPBUNl", // Tu clave de autenticación
                 BasePath = FirebaseUrl
             };
             firebaseClient = new FireSharp.FirebaseClient(config);
+
+            // Opcional: ocultar la barra de navegación si lo deseas
+            if (Navigation.NavigationStack.Count == 0)
+            {
+                NavigationPage.SetHasNavigationBar(this, false);
+            }
         }
 
         private async void BtnGenQR(object sender, EventArgs e)
@@ -44,21 +52,30 @@ namespace PIA.Views
                 // Si la imagen QR se genera correctamente
                 Console.WriteLine("QR generado correctamente, mostrando la imagen.");
 
-                // Actualizar la UI con el QR recibido
-                MainThread.BeginInvokeOnMainThread(() =>
+                // Aquí es donde puedes colocar el código para mostrar el QR en un ImageView
+                // Si tienes un control Image en la UI para mostrar la imagen, por ejemplo, 'qrImageView'
+                qrImageView.Source = ImageSource.FromStream(() => new MemoryStream(qrImage));
+
+                // Ahora registrar la visita en Firebase, ya que el QR se generó correctamente
+                bool visitRegistered = await RegisterVisit(visitorName, visitType, expirationDate);
+
+                // Si el registro en Firebase fue exitoso, mostrar la alerta de éxito
+                if (visitRegistered)
                 {
-                    qrImageView.Source = ImageSource.FromStream(() => new MemoryStream(qrImage));
-                });
+                    await DisplayAlert("Éxito", "Visita registrada y QR generado.", "OK");
+                }
+                else
+                {
+                    // Si no se pudo registrar la visita en Firebase
+                    await DisplayAlert("Error", "No se pudo registrar la visita en Firebase.", "OK");
+                }
             }
             else
             {
-                // Si la imagen QR no se genera correctamente
+                // Si la imagen QR no se genera correctamente, mostrar solo un mensaje de error
                 Console.WriteLine("Error: No se pudo generar el QR desde la API.");
                 await DisplayAlert("Error", "No se pudo generar el código QR.", "OK");
             }
-
-            // Registra la visita en la base de datos Firebase
-            await RegisterVisit(visitorName, visitType, expirationDate);
         }
 
         // Llamada a la API para generar el código QR
@@ -68,46 +85,51 @@ namespace PIA.Views
             {
                 using (var client = new HttpClient())
                 {
-                    // Preparar la URL de la API y agregar el parámetro 'content' a la solicitud
-                    var response = await client.GetAsync($"{ApiUrl}?content={Uri.EscapeDataString(content)}");
+                    // Crear la URL de la solicitud para verificar
+                    var requestUrl = $"{ApiUrl}?content={Uri.EscapeDataString(content)}";
+                    Console.WriteLine($"Realizando solicitud a: {requestUrl}"); // Depuración de la URL
 
-                    Console.WriteLine($"Estado de la respuesta de la API: {response.StatusCode}");
+                    // Realizamos la solicitud GET a la API para generar el QR
+                    var response = await client.GetAsync(requestUrl);
 
+                    // Verificamos si la respuesta es exitosa (código 200 OK)
                     if (response.IsSuccessStatusCode)
                     {
-                        // Leer el contenido de la respuesta (la imagen QR en formato PNG)
+                        // Leemos la respuesta como un arreglo de bytes (la imagen en formato PNG)
                         var qrBytes = await response.Content.ReadAsByteArrayAsync();
-                        Console.WriteLine($"Tamaño de la imagen QR recibida: {qrBytes.Length} bytes");
 
-                        // Verificar si la imagen tiene contenido
+                        // Verificamos que el arreglo de bytes contiene datos
                         if (qrBytes.Length > 0)
                         {
-                            Console.WriteLine("Imagen QR generada correctamente");
+                            Console.WriteLine($"QR generado correctamente, tamaño de la imagen: {qrBytes.Length} bytes.");
                             return qrBytes;
                         }
                         else
                         {
-                            Console.WriteLine("La respuesta de la API no contiene imagen válida.");
+                            // Si la respuesta de la API no contiene datos de imagen
+                            Console.WriteLine("La respuesta de la API no contiene una imagen válida.");
                             return null;
                         }
                     }
                     else
                     {
-                        Console.WriteLine("La API devolvió un error al generar el QR.");
+                        // Si la respuesta no es exitosa, mostramos el código de estado y el contenido de la respuesta
+                        var errorContent = await response.Content.ReadAsStringAsync();
+                        Console.WriteLine($"Error en la respuesta de la API. Código de estado: {response.StatusCode}. Contenido: {errorContent}");
                         return null;
                     }
                 }
             }
             catch (Exception ex)
             {
-                // Manejar errores de conexión o de la API
+                // Manejo de excepciones en caso de error en la llamada a la API
                 Console.WriteLine($"Error al generar el QR: {ex.Message}");
                 return null;
             }
         }
 
-        // Registrar la visita en Firebase
-        private async Task RegisterVisit(string visitorName, string visitType, DateTime expirationDate)
+        // Registrar la visita en Firebase y devolver un valor booleano de éxito
+        private async Task<bool> RegisterVisit(string visitorName, string visitType, DateTime expirationDate)
         {
             var visita = new
             {
@@ -117,20 +139,21 @@ namespace PIA.Views
                 DateCreated = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
             };
 
-            var visitasRef = firebaseClient.Get("visitas");
             string visitId = Guid.NewGuid().ToString();
 
-            // Guardar la visita en Firebase
-            SetResponse response = firebaseClient.Set($"visitas/{visitId}", visita);
+            try
+            {
+                // Guardar la visita en Firebase
+                SetResponse response = firebaseClient.Set($"visitas/{visitId}", visita);
 
-            // Mostrar un mensaje según si la operación fue exitosa o no
-            if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                await DisplayAlert("Éxito", "Visita registrada y QR generado.", "OK");
+                // Si la respuesta es OK, devolvemos true, indicando que el registro fue exitoso
+                return response != null && response.StatusCode == System.Net.HttpStatusCode.OK;
             }
-            else
+            catch (Exception ex)
             {
-                await DisplayAlert("Error", "No se pudo registrar la visita.", "OK");
+                // En caso de error al registrar la visita, lo registramos en el log
+                Console.WriteLine($"Error al registrar la visita en Firebase: {ex.Message}");
+                return false;
             }
         }
     }
