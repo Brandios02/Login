@@ -1,16 +1,22 @@
 using Firebase.Auth;
+using Firebase.Database;
 using PIA.Models;
+using Microsoft.Maui.Controls;
+using System;
 
 namespace PIA.Views
 {
     public partial class NewPage1 : ContentPage
     {
         private readonly FirebaseAuthClient _clientAuth;
+        private readonly FirebaseClient _firebaseClient;
 
-        public NewPage1(FirebaseAuthClient firebaseAuthClient)
+        // Constructor que recibe FirebaseAuthClient y FirebaseClient
+        public NewPage1(FirebaseAuthClient firebaseAuthClient, FirebaseClient firebaseClient)
         {
             InitializeComponent();
             _clientAuth = firebaseAuthClient;
+            _firebaseClient = firebaseClient;
         }
 
         private async void btn_login(object sender, EventArgs e)

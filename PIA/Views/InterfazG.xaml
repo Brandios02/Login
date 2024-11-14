@@ -1,77 +1,77 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="PIA.Views.InterfazUs"
-             Title="InterfazUs"
+             x:Class="PIA.Views.InterfazG"
+             Title="Interfaz Guardia"
              Background="#F1F1F1">
-             
+
     <VerticalStackLayout VerticalOptions="Center">
-        <Label Text="Bienvenido residente"
-               FontSize="Medium"  
-            FontAttributes="Bold"
-            TextColor="Black"
-            HorizontalOptions="Center"
-            Margin="0,0" />
+        <Label Text="Bienvenido guardia"
+               FontSize="Medium"
+               FontAttributes="Bold"
+               TextColor="Black"
+               HorizontalOptions="Center"
+               Margin="0,0" />
+
         <Label Text="¿Qué deseas hacer hoy?"
                FontSize="Medium"
-            TextColor="Black"
-            HorizontalOptions="Center"
-            VerticalOptions="Center"
-            Margin="0,30" />
-            <Label Text="Generar visita"
+               TextColor="Black"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               Margin="0,30" />
+
+        <Label Text="Ver Visitas Programadas"
                HorizontalOptions="Center"
                VerticalOptions="Center"
                TextColor="Black"
                FontSize="Medium"
                FontAttributes="Bold"/>
-        <ImageButton Source="visita.png" 
+        <ImageButton Source="ver_visitas.png"
                      Aspect="Fill"
                      BorderColor="Black"
                      WidthRequest="350"
                      BorderWidth="2"
                      CornerRadius="70"
                      Padding="5"
-                     IsEnabled="True"
                      BackgroundColor="#5271ff"
                      HeightRequest="150"
-                     Clicked="IB_Gvisita">
+                     Clicked="IB_VerVisitas">
         </ImageButton>
-        
-           <Label Text="Eliminar Visita"
-           HorizontalOptions="Center"
-           VerticalOptions="Center"
-           TextColor="Black"
-           FontSize="Medium"
-           FontAttributes="Bold"/>
-            <ImageButton Source="eliminarvis.png" 
-                     Aspect="Fill"
-                     BorderColor="Black"
-                     WidthRequest="350"
-                     BorderWidth="2"
-                     CornerRadius="70"
-                     Padding="5"
-                     IsEnabled="True"
-                     BackgroundColor="#5271ff"
-                     HeightRequest="150"
-                     Clicked="IB_Evisita">
-        </ImageButton>
-        <Label Text="Contactar Guardia"
+
+        <Label Text="Registrar Visitante"
                HorizontalOptions="Center"
                VerticalOptions="Center"
                TextColor="Black"
                FontSize="Medium"
-               FontAttributes="Bold"/>     
-        <ImageButton Source="contactargua.png" 
+               FontAttributes="Bold"/>
+        <ImageButton Source="registrar_visitante.png"
                      Aspect="Fill"
                      BorderColor="Black"
                      WidthRequest="350"
                      BorderWidth="2"
                      CornerRadius="70"
                      Padding="5"
-                     IsEnabled="True"
                      BackgroundColor="#5271ff"
                      HeightRequest="150"
-                     Clicked="IB_Cguardia">
+                     Clicked="IB_RegistrarVisitante">
+        </ImageButton>
+
+        <Label Text="Generar Reporte"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               TextColor="Black"
+               FontSize="Medium"
+               FontAttributes="Bold"/>
+        <ImageButton Source="reporte.png"
+                     Aspect="Fill"
+                     BorderColor="Black"
+                     WidthRequest="350"
+                     BorderWidth="2"
+                     CornerRadius="70"
+                     Padding="5"
+                     BackgroundColor="#5271ff"
+                     HeightRequest="150"
+                     Clicked="IB_GenerarReporte">
         </ImageButton>
     </VerticalStackLayout>
 </ContentPage>

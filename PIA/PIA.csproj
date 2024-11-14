@@ -57,6 +57,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <MauiXaml Update="Views\Cguardia.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
     <MauiXaml Update="Views\Evisita.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
@@ -64,6 +67,9 @@
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Views\HomePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\InterfazG.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Views\InterfazUs.xaml">

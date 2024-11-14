@@ -8,6 +8,7 @@ using Microsoft.Maui.Controls;
 using System;
 using System.Threading.Tasks;
 using Firebase.Auth.Providers;
+using Microsoft.Maui.Storage;
 
 namespace PIA.Views
 {
@@ -41,12 +42,14 @@ namespace PIA.Views
             var telefono = phoneEntry.Text;
             var email = emailEntry.Text;
             var password = PasswordEntry.Text;
+            var tipoUsuario = tipousEntry.SelectedItem?.ToString();  // Puede ser "Guardia" o "Residente"
 
             // Verifica que no haya campos vacíos
             if (string.IsNullOrWhiteSpace(nombre) ||
                 string.IsNullOrWhiteSpace(telefono) ||
                 string.IsNullOrWhiteSpace(email) ||
-                string.IsNullOrWhiteSpace(password))
+                string.IsNullOrWhiteSpace(password) ||
+                string.IsNullOrWhiteSpace(tipoUsuario))
             {
                 await DisplayAlert("Error", "Por favor, completa todos los campos.", "OK");
                 return;
@@ -59,29 +62,30 @@ namespace PIA.Views
 
                 if (authResponse != null)
                 {
-                    // Crear un nuevo objeto de empresa para guardar en la base de datos
-                    var nuevaEmpresa = new Empresa
+                    // Crear un nuevo objeto de usuario para guardar en la base de datos
+                    var nuevaEmpresa = new Usuario
                     {
+                        Id = Guid.NewGuid().ToString(),
                         Name = nombre,
                         Phone = telefono,
-                        Email = email
-                        // No almacenes la contraseña aquí
+                        Email = email,
+                        Role = tipoUsuario
                     };
 
                     // Modificar el email para que sea seguro en la ruta (sin caracteres no permitidos)
                     var emailPathSafe = email.Replace(".", "_").Replace("@", "_");
 
                     // Guarda la nueva empresa en Firebase Realtime Database
-                    SetResponse response = firebaseClient.Set("Empresa/" + emailPathSafe, nuevaEmpresa);
+                    SetResponse response = firebaseClient.Set("Usuarios/" + emailPathSafe, nuevaEmpresa);
 
                     // Verificar la respuesta de Firebase
                     if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
-                        await DisplayAlert("Éxito", "Empresa registrada exitosamente.", "OK");
+                        await DisplayAlert("Éxito", "Usuario registrado exitosamente.", "OK");
                     }
                     else
                     {
-                        await DisplayAlert("Error", "No se pudo registrar la empresa.", "OK");
+                        await DisplayAlert("Error", "No se pudo registrar usuario.", "OK");
                     }
                 }
                 else
@@ -93,9 +97,6 @@ namespace PIA.Views
             {
                 await DisplayAlert("Error", $"Ocurrió un error: {ex.Message}", "OK");
             }
-
         }
-
-
     }
 }

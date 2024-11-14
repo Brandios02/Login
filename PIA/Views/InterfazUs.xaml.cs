@@ -16,4 +16,9 @@ public partial class InterfazUs : ContentPage
         
         await Navigation.PushAsync(new Evisita()); 
     }
+    private async void IB_Cguardia(object sender, EventArgs e)
+    {
+
+        await Navigation.PushAsync(new Cguardia());
+    }
 }

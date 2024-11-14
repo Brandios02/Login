@@ -24,7 +24,7 @@
                            TextColor="#A3A3A4"/>
 
                     <!-- Selección de tipo de usuario -->
-                    <Picker x:Name="rolePicker"
+                    <Picker x:Name="tipousEntry"
                             Title="Seleccion de tipo de usuario"
                             TextColor="Black"
                             BackgroundColor="White"
